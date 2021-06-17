@@ -7,6 +7,15 @@
     padding: 20px 15px 15px 20px;
   }
 
+  &__direction-buttons {
+    margin: 20px 0;
+  }
+
+  &__subtasks-block {
+    display: flex;
+  }
+
+
   &__btn {
     width: 100px;
     height: 30px;
@@ -16,13 +25,42 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
+      opacity: 1;
     }
   }
 }
+
+.sketch-button,
+  .spotify-button,
+  .dribble-button,
+  .behance-button,
+  .ux-button {
+    opacity: 0.5;
+  }
+
+  .sketch-button {
+    color: orange;
+  }
+
+  .spotify-button {
+    color: rgb(12, 192, 12);
+  }
+
+  .dribble-button {
+    color: rgb(232, 119, 138);
+  }
+
+  .behance-button {
+    color: rgb(68, 41, 191);
+  }
+
+  .ux-button {
+    color: rgb(36, 38, 36);
+  }
 
 .add-todo-form__btn.disabled {
   background-color: #5f535380;

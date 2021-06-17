@@ -10,7 +10,6 @@ import './CompleteInput.scss';
 export const CompleteInput = () => {
   const {
     todoInfo,
-    // completeStatus,
     setSelectedTodoCompleteStatus,
   } = useTodos();
   const { completed } = todoInfo;

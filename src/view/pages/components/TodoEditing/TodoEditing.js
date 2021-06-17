@@ -16,12 +16,9 @@ import './TodoEditing.scss';
 
 export const TodoEditing = () => {
   const {
-    todoInfo,
-    handleSubmit,
+    changeSelectedTodoInfo,
+    deleteTodo,
   } = useTodos();
-
-  // eslint-disable-next-line no-console
-  console.log(todoInfo);
 
   const formKeyDown = (event) => {
     if (event.keyCode === 13) {
@@ -32,7 +29,7 @@ export const TodoEditing = () => {
   return (
     <div className="app__add-todo-block add-todo-block">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={changeSelectedTodoInfo}
         className="add-todo-block__add-todo-form add-todo-form"
         onKeyDown={formKeyDown}
         role="presentation"
@@ -40,6 +37,7 @@ export const TodoEditing = () => {
         <CompleteInput />
         <button
           type="button"
+          onClick={deleteTodo}
         >
           X
         </button>

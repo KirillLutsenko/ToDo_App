@@ -61,6 +61,25 @@ export const useTodos = () => {
     dispatch(todoActions.todosFillAction(newTodoList));
   };
 
+  const deleteTodo = () => {
+    const newTodoList = todoList.filter(todo => todo.id !== todoInfo.id);
+
+    dispatch(todoActions.todosFillAction(newTodoList));
+    dispatch(todoActions.changeVisibilityTodoInfoAction(false));
+  };
+
+  const setExternalCompleteStatus = (id) => {
+    const newTodoList = todoList.map(todo => ((todo.id === id)
+      ? {
+        ...todo,
+        completed: !todo.completed,
+      }
+      : todo
+    ));
+
+    dispatch(todoActions.todosFillAction(newTodoList));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -71,6 +90,32 @@ export const useTodos = () => {
     addTodo(createTodo());
     dispatch(todoActions.setInitialStateAction());
     dispatch(todoActions.setVisibleNewTaskFormAction(false));
+  };
+
+  const changeSelectedTodoInfo = async(event) => {
+    event.preventDefault();
+
+    if (event.keyCode === 'Enter') {
+      event.preventDefault();
+    }
+
+    const newTodoList = await todoList.map(todo => ((todo.id === todoInfo.id)
+      ? {
+        id: todoInfo.id,
+        title: todoInfo.title,
+        description: todoInfo.description,
+        deadline: todoInfo.deadline,
+        completed: todoInfo.completed,
+        subtaskList: todoInfo.subtaskList,
+      }
+      : todo
+    ));
+
+    // eslint-disable-next-line no-console
+    console.log(newTodoList);
+
+    dispatch(todoActions.todosFillAction([...newTodoList]));
+    dispatch(todoActions.changeVisibilityTodoInfoAction(false));
   };
 
   const changeTitleInputText = (event) => {
@@ -121,9 +166,6 @@ export const useTodos = () => {
 
     if (subtaskList.length === 1) {
       changeSubtaskList([...initialState.subtasks.subtaskList]);
-
-      // eslint-disable-next-line no-console
-      console.log(subtaskList, newSubtaskList, subtaskList.length);
     }
 
     if (!value.length && subtaskList.length > 1) {
@@ -149,7 +191,7 @@ export const useTodos = () => {
   const addSubtask = async() => {
     const newSubtaskList = await [...subtaskList, newSubtask()];
 
-    dispatch(todoActions.addSubtaskAction(newSubtaskList));
+    changeSubtaskList(newSubtaskList);
     dispatch(todoActions.changeSubtaskInputTextAction(''));
     dispatch(todoActions
       .setSubtaskCompleteStatusAction(false));
@@ -158,14 +200,21 @@ export const useTodos = () => {
   const showTodoInfo = async(event, id) => {
     event.stopPropagation();
 
-    const selectedTodoInfo = todoList.find(todo => todo.id === id);
+    const selectedTodoInfo = await todoList.find(todo => todo.id === id);
 
+    dispatch(todoActions.setVisibleNewTaskFormAction(false));
     dispatch(todoActions.getTodoInfoAction(selectedTodoInfo));
-    dispatch(todoActions.changeVisibilityTodoInfoAction(!visibilityTodoInfo));
+    dispatch(todoActions.changeVisibilityTodoInfoAction(true));
+
+    // eslint-disable-next-line no-console
+    console.log(selectedTodoInfo);
   };
 
   const setSelectedTodoCompleteStatus = () => {
     const { completed } = todoInfo;
+
+    // eslint-disable-next-line no-console
+    console.log(todoList);
 
     dispatch(todoActions.changeCompleteStatusForSelectedTodoAction(!completed));
   };
@@ -188,6 +237,66 @@ export const useTodos = () => {
     dispatch(todoActions.changeDescriptionForSelectedTodo(value));
   };
 
+  const changeTodoSubtaskList = (newSubtaskList) => {
+    dispatch(todoActions.changeTodoSubtaskListAction(newSubtaskList));
+  };
+
+  const changeTodoSelectedSubtaskText = (event, id) => {
+    const { value } = event.target;
+    const selectedSubtask = todoInfo.subtaskList
+      .find(subtask => subtask.id === id);
+
+    let newSubtaskList = [];
+
+    newSubtaskList = todoInfo.subtaskList
+      .map(subtask => ((selectedSubtask.id === subtask.id)
+        ? {
+          ...subtask,
+          title: value,
+        } : { ...subtask }));
+
+    if (todoInfo.subtaskList.length === 1) {
+      changeTodoSubtaskList([...initialState.subtasks.subtaskList]);
+    }
+
+    if (!value.length && todoInfo.subtaskList.length > 1) {
+      newSubtaskList = todoInfo.subtaskList
+        .filter(subtask => subtask.id !== id);
+    }
+
+    changeTodoSubtaskList(newSubtaskList);
+  };
+
+  const changeTodoSelectedSubstaskCompleteStatus = (id) => {
+    const selectedSubtask = todoInfo.subtaskList
+      .find(subtask => subtask.id === id);
+
+    const newSubtaskList = todoInfo.subtaskList
+      .map(subtask => ((selectedSubtask.id === subtask.id)
+        ? {
+          ...subtask,
+          complete: !subtask.complete,
+        } : subtask
+      ));
+
+    changeTodoSubtaskList(newSubtaskList);
+  };
+
+  const newTodoSubtask = () => ({
+    id: todoInfo.subtaskList.length + 1,
+    title: subtaskInputText,
+    complete: subtaskCompleteStatus,
+  });
+
+  const addTodoSubtask = async() => {
+    const newSubtaskList = await [...todoInfo.subtaskList, newTodoSubtask()];
+
+    changeTodoSubtaskList(newSubtaskList);
+    dispatch(todoActions.changeTodoSubtaskInputTextAction(''));
+    dispatch(todoActions
+      .setTodoSubtaskCompleteStatusAction(false));
+  };
+
   const resetFormFields = () => {
     dispatch(todoActions.resetFormAction());
   };
@@ -203,6 +312,8 @@ export const useTodos = () => {
     todoInfo,
     visibilityTodoInfo,
     handleSubmit,
+    deleteTodo,
+    setExternalCompleteStatus,
     setCompleteStatus,
     changeTitleInputText,
     changeDescriptionInputText,
@@ -219,5 +330,9 @@ export const useTodos = () => {
     changeTitleForSelectedTodo,
     changeDeadlineDateForSelectedTodo,
     changeDescriptionForSelectedTodo,
+    changeSelectedTodoInfo,
+    changeTodoSelectedSubtaskText,
+    changeTodoSelectedSubstaskCompleteStatus,
+    addTodoSubtask,
   };
 };

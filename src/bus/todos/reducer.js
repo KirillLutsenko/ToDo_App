@@ -10,7 +10,6 @@ import {
   RESET_FORM,
   CHANGE_SUBTASK_INPUT_TEXT,
   SET_SUBTASK_COMPLETE_STATUS,
-  ADD_SUBTASK,
   CHANGE_SUBTASK_LIST,
   CHANGE_SELECTED_SUBTASK_TEXT,
   CHANGE_SELECTED_SUBTASK_COMPLETE_STATUS,
@@ -21,6 +20,13 @@ import {
   CHANGE_TITLE_FOR_SELECTED_TODO,
   CHANGE_DEADLINE_FOR_SELECTED_TODO,
   CHANGE_DESCRIPTION_FOR_SELECTED_TODO,
+  SET_SELECTED_TODO_ID,
+  CHANGE_TODO_INFO,
+  CHANGE_TODO_SUBTASK_LIST,
+  CHANGE_TODO_SUBTASK_INPUT_TEXT,
+  // CHANGE_TODO_SELECTED_SUBTASK_TEXT,
+  // CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
+  SET_TODO_SUBTASK_COMPLETE_STATUS,
   // Global Types
   SET_INITIAL_STATE,
 } from './types';
@@ -46,6 +52,7 @@ export const initialState = {
     selectedSubtaskCompleteStatus: false,
   },
   // ChangeTodoInfo State
+  selectedTodoId: 0,
   todoInfo: {
     id: 0,
     title: '',
@@ -53,8 +60,11 @@ export const initialState = {
     deadline: '',
     subtaskList: [],
     subtaskText: '',
-    subtaskCompleteStatus: false,
     completed: false,
+    subtaskInputText: '',
+    subtaskCompleteStatus: false,
+    selectedSubtaskText: '',
+    selectedSubtaskCompleteStatus: false,
   },
   visibilityTodoInfo: false,
 };
@@ -136,15 +146,6 @@ export const todoReducer = (state = initialState, action) => {
         },
       };
 
-    case ADD_SUBTASK:
-      return {
-        ...state,
-        subtasks: {
-          ...subtasks,
-          subtaskList: action.payload,
-        },
-      };
-
     case CHANGE_SUBTASK_LIST:
       return {
         ...state,
@@ -154,7 +155,19 @@ export const todoReducer = (state = initialState, action) => {
         },
       };
 
+    case CHANGE_TODO_INFO:
+      return {
+        ...state,
+        todoList: action.payload,
+      };
+
     // ChangeTodoInfo Cases
+    case SET_SELECTED_TODO_ID:
+      return {
+        ...state,
+        selectedTodoId: action.payload,
+      };
+
     case GET_TODO_INFO:
       return {
         ...state,
@@ -200,6 +213,33 @@ export const todoReducer = (state = initialState, action) => {
         todoInfo: {
           ...todoInfo,
           description: action.payload,
+        },
+      };
+
+    case CHANGE_TODO_SUBTASK_LIST:
+      return {
+        ...state,
+        todoInfo: {
+          ...todoInfo,
+          subtaskList: action.payload,
+        },
+      };
+
+    case CHANGE_TODO_SUBTASK_INPUT_TEXT:
+      return {
+        ...state,
+        todoInfo: {
+          ...todoInfo,
+          subtaskInputText: action.payload,
+        },
+      };
+
+    case SET_TODO_SUBTASK_COMPLETE_STATUS:
+      return {
+        ...state,
+        todoInfo: {
+          ...todoInfo,
+          subtaskCompleteStatus: action.payload,
         },
       };
 

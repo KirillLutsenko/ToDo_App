@@ -9,13 +9,13 @@ import './Checklist.scss';
 
 export const Checklist = () => {
   const {
-    subtasks,
-    changeSelectedSubstaskCompleteStatus,
-    changeSelectedSubtaskText,
-    addSubtask,
+    todoInfo,
+    changeTodoSelectedSubstaskCompleteStatus,
+    changeTodoSelectedSubtaskText,
+    addTodoSubtask,
   } = useTodos();
 
-  const { subtaskList } = subtasks;
+  const { subtaskList } = todoInfo;
 
   const newSubtaskKeyDown = (event, index) => {
     const { keyCode } = event;
@@ -25,7 +25,7 @@ export const Checklist = () => {
       || (keyCode >= 186 && keyCode <= 192)
       || (keyCode >= 219 && keyCode <= 222))
       && (index + 1) === subtaskList.length) {
-      addSubtask();
+      addTodoSubtask();
     }
   };
 
@@ -33,7 +33,7 @@ export const Checklist = () => {
     <div>
       {subtaskList.map((subtask, index) => (
         <div
-          className="add-todo-form__subtask-label"
+          className="add-todo-form__subtasks-block"
           key={subtask.id}
         >
           <input
@@ -41,7 +41,9 @@ export const Checklist = () => {
             name="subtask-checkbox"
             className="add-todo-form__complete-checkbox"
             checked={subtask.complete}
-            onChange={() => changeSelectedSubstaskCompleteStatus(subtask.id)}
+            onChange={
+              () => changeTodoSelectedSubstaskCompleteStatus(subtask.id)
+            }
           />
           <input
             type="text"
@@ -49,7 +51,7 @@ export const Checklist = () => {
             name="subtask-value"
             className="add-todo-form__subtask-input"
             value={subtask.title}
-            onChange={event => changeSelectedSubtaskText(event, subtask.id)}
+            onChange={event => changeTodoSelectedSubtaskText(event, subtask.id)}
             onKeyDown={event => newSubtaskKeyDown(event, index)}
           />
         </div>

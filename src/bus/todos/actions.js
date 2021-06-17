@@ -11,7 +11,6 @@ import {
   CHANGE_SUBTASK_INPUT_TEXT,
   SET_SUBTASK_COMPLETE_STATUS,
   CHANGE_SUBTASK_LIST,
-  ADD_SUBTASK,
   CHANGE_SELECTED_SUBTASK_TEXT,
   CHANGE_SELECTED_SUBTASK_COMPLETE_STATUS,
   // ChangeTodoInfo Types
@@ -21,6 +20,13 @@ import {
   CHANGE_TITLE_FOR_SELECTED_TODO,
   CHANGE_DEADLINE_FOR_SELECTED_TODO,
   CHANGE_DESCRIPTION_FOR_SELECTED_TODO,
+  SET_SELECTED_TODO_ID,
+  CHANGE_TODO_INFO,
+  CHANGE_TODO_SUBTASK_LIST,
+  CHANGE_TODO_SUBTASK_INPUT_TEXT,
+  CHANGE_TODO_SELECTED_SUBTASK_TEXT,
+  CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
+  SET_TODO_SUBTASK_COMPLETE_STATUS,
   // Global Types
   SET_INITIAL_STATE,
 } from './types';
@@ -78,11 +84,6 @@ export const todoActions = Object.freeze({
     payload,
   }),
 
-  addSubtaskAction: payload => ({
-    type: ADD_SUBTASK,
-    payload,
-  }),
-
   changeSubtaskListAction: payload => ({
     type: CHANGE_SUBTASK_LIST,
     payload,
@@ -94,6 +95,11 @@ export const todoActions = Object.freeze({
   }),
 
   // ChangeTodoInfo Actions
+  setSelectedTodoIdAction: payload => ({
+    type: SET_SELECTED_TODO_ID,
+    payload,
+  }),
+
   getTodoInfoAction: payload => ({
     type: GET_TODO_INFO,
     payload,
@@ -121,6 +127,36 @@ export const todoActions = Object.freeze({
 
   changeDescriptionForSelectedTodo: payload => ({
     type: CHANGE_DESCRIPTION_FOR_SELECTED_TODO,
+    payload,
+  }),
+
+  changeTodoInfo: payload => ({
+    type: CHANGE_TODO_INFO,
+    payload,
+  }),
+
+  changeTodoSubtaskInputTextAction: payload => ({
+    type: CHANGE_TODO_SUBTASK_INPUT_TEXT,
+    payload,
+  }),
+
+  changeTodoSelectedSubtaskTextAction: payload => ({
+    type: CHANGE_TODO_SELECTED_SUBTASK_TEXT,
+    payload,
+  }),
+
+  changeTodoSelectedSubtaskCompleteStatus: payload => ({
+    type: CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
+    payload,
+  }),
+
+  setTodoSubtaskCompleteStatusAction: payload => ({
+    type: SET_TODO_SUBTASK_COMPLETE_STATUS,
+    payload,
+  }),
+
+  changeTodoSubtaskListAction: payload => ({
+    type: CHANGE_TODO_SUBTASK_LIST,
     payload,
   }),
 

@@ -55,6 +55,39 @@ export const AddTodoForm = () => {
           <DescriptionInput />
           <Checklist />
 
+          <div className="add-todo-form__direction-buttons">
+            <button
+              type="button"
+              className="add-todo-form__btn sketch-button"
+            >
+              Sketch
+            </button>
+            <button
+              type="button"
+              className="add-todo-form__btn spotify-button"
+            >
+              Spotify
+            </button>
+            <button
+              type="button"
+              className="add-todo-form__btn dribble-button"
+            >
+              Dribble
+            </button>
+            <button
+              type="button"
+              className="add-todo-form__btn behance-button"
+            >
+              Behance
+            </button>
+            <button
+              type="button"
+              className="add-todo-form__btn ux-button"
+            >
+              UX
+            </button>
+          </div>
+
           <button
             type="button"
             className={resetButtonClasses}

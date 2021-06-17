@@ -40,7 +40,7 @@ export const Checklist = () => {
     <div>
       {subtaskList.map((subtask, index) => (
         <div
-          className="add-todo-form__subtask-label"
+          className="add-todo-form__subtasks-block"
           key={subtask.id}
         >
           <input

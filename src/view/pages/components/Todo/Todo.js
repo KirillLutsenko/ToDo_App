@@ -33,14 +33,12 @@ export const Todo = ({
               type="checkbox"
               id={`${index}`}
               checked={completed}
+              // onChange={setExternalCompleteStatus(id)}
             />
           </label>
         </div>
         <div className="todo__todo-tittle-block">
           <h3 className="todo__todo-title">{title}</h3>
-          <span className="todo__todo-description">
-            {description}
-          </span>
         </div>
         <span className="todo__todo-deadline-date">{deadline}</span>
       </div>
