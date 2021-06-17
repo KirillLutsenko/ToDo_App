@@ -1,0 +1,8 @@
+.add-todo-form {
+  &__deadline {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    margin-bottom: 20px;
+  }
+}

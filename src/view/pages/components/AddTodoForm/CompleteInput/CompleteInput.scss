@@ -1,0 +1,35 @@
+.add-todo-form {
+  &__checkbox-block {
+    display: flex;
+    color: rgba(0, 0, 0, 0.535);
+    padding: 15px 15px 15px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px rgba(0, 0, 0, 0.131) solid;
+    cursor: pointer;
+  }
+  
+  &__complete-checkbox {
+    position: relative;
+    right: 4px;
+    bottom: 1px;
+    width: 16px;
+    height: 16px;
+    appearance: none;
+    border: 1px solid rgba(0, 0, 0, 0.535);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+
+    &:checked:before {
+      content: "✓";
+      position: absolute;
+      left: 1px;
+      bottom: -2px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #02a02f;
+    }
+  }
+}

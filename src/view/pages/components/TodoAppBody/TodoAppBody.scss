@@ -1,0 +1,48 @@
+.todo-body-start-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-body-only-form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.todo-body-only-todos {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.todo-body-full {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100vw;
+}
+
+.start-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+
+  &__image {
+    width: 400px;
+    height: 50vh;
+    background: url('../../../images/start-page.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &__text {
+    width: 40vw;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.713);
+  }
+}

@@ -1,0 +1,39 @@
+.add-todo-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__main-menu {
+    padding: 20px 15px 15px 20px;
+  }
+
+  &__btn {
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.add-todo-form__btn.disabled {
+  background-color: #5f535380;
+  color: #ccc;
+}
+
+.save-btn {
+  margin-left: 10px;
+  background-color: #02b134;
+}
+
+.reset-btn {
+  background-color: #fd4d96;
+}
