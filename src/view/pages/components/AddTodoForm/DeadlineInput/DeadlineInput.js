@@ -3,19 +3,16 @@ import React from 'react';
 
 // Tools
 import { useTodos } from '../../../../../bus/todos/index';
+import { todaysDate } from '../../../../../helpers';
 
 // Styles
 import './DeadlineInput.scss';
-
-const moment = require('moment');
 
 export const DeadlineInput = () => {
   const {
     deadlineDate,
     changeDeadlineDate,
   } = useTodos();
-
-  const todaysDate = moment().format('YYYY-MM-DD');
 
   return (
     <div className="add-todo-form__deadline">

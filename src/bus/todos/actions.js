@@ -13,6 +13,7 @@ import {
   CHANGE_SUBTASK_LIST,
   CHANGE_SELECTED_SUBTASK_TEXT,
   CHANGE_SELECTED_SUBTASK_COMPLETE_STATUS,
+  SET_TAG,
   // ChangeTodoInfo Types
   GET_TODO_INFO,
   SHOW_TODO_INFO,
@@ -20,15 +21,20 @@ import {
   CHANGE_TITLE_FOR_SELECTED_TODO,
   CHANGE_DEADLINE_FOR_SELECTED_TODO,
   CHANGE_DESCRIPTION_FOR_SELECTED_TODO,
-  SET_SELECTED_TODO_ID,
   CHANGE_TODO_INFO,
   CHANGE_TODO_SUBTASK_LIST,
   CHANGE_TODO_SUBTASK_INPUT_TEXT,
   CHANGE_TODO_SELECTED_SUBTASK_TEXT,
   CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
   SET_TODO_SUBTASK_COMPLETE_STATUS,
+  CHANGE_TODO_TAG,
+  RESET_EDITING_SELECTED_TODO_FORM,
   // Global Types
   SET_INITIAL_STATE,
+  SET_TITLE_WARNING,
+  SET_TAG_FIELD_WARNING,
+  SET_SUBTASKS_WARNING,
+  SET_DEADLINE_WARNING,
 } from './types';
 
 export const todoActions = Object.freeze({
@@ -89,16 +95,17 @@ export const todoActions = Object.freeze({
     payload,
   }),
 
+  setTagAction: payload => ({
+    type: SET_TAG,
+    payload,
+  }),
+
   resetFormAction: payload => ({
     type: RESET_FORM,
     payload,
   }),
 
   // ChangeTodoInfo Actions
-  setSelectedTodoIdAction: payload => ({
-    type: SET_SELECTED_TODO_ID,
-    payload,
-  }),
 
   getTodoInfoAction: payload => ({
     type: GET_TODO_INFO,
@@ -160,9 +167,39 @@ export const todoActions = Object.freeze({
     payload,
   }),
 
+  changeTodoTagAction: payload => ({
+    type: CHANGE_TODO_TAG,
+    payload,
+  }),
+
+  resetEditingSelectedTodoFormAction: payload => ({
+    type: RESET_EDITING_SELECTED_TODO_FORM,
+    payload,
+  }),
+
   // Global Actions
   setInitialStateAction: payload => ({
     type: SET_INITIAL_STATE,
+    payload,
+  }),
+
+  setTitleWarningAction: payload => ({
+    type: SET_TITLE_WARNING,
+    payload,
+  }),
+
+  setTagFieldwarningAction: payload => ({
+    type: SET_TAG_FIELD_WARNING,
+    payload,
+  }),
+
+  setSaubtasksWarningAction: payload => ({
+    type: SET_SUBTASKS_WARNING,
+    payload,
+  }),
+
+  setDeadlineWarningAction: payload => ({
+    type: SET_DEADLINE_WARNING,
     payload,
   }),
 });

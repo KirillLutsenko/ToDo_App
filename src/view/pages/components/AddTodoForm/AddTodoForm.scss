@@ -1,4 +1,5 @@
 .add-todo-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -15,6 +16,17 @@
     display: flex;
   }
 
+  &__submit-buttons {
+    margin: 30px 0 50px 0;
+  }
+
+  &__warning-error-block {
+    position: absolute;
+    bottom: 10px;
+    color: red;
+    font-size: 12px;
+  }
+
 
   &__btn {
     width: 100px;
@@ -22,24 +34,33 @@
     border: none;
     border-radius: 5px;
     color: #fff;
+    opacity: 0.5;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
 
-    &:hover {
+    &:enabled {
+      opacity: 1;
+    }
+
+    &:enabled:hover {
       transform: scale(1.05);
       opacity: 1;
     }
   }
+
+  &__warning-error-block {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-.sketch-button,
+  .sketch-button,
   .spotify-button,
   .dribble-button,
-  .behance-button,
-  .ux-button {
-    opacity: 0.5;
+  .behance-button {
+    margin-right: 5px;
   }
 
   .sketch-button {
@@ -59,12 +80,16 @@
   }
 
   .ux-button {
-    color: rgb(36, 38, 36);
+    color: rgb(128, 128, 128);
   }
 
 .add-todo-form__btn.disabled {
   background-color: #5f535380;
-  color: #ccc;
+  color: #fff;
+
+  &:hover {
+    transform: scale(1);
+  }
 }
 
 .save-btn {

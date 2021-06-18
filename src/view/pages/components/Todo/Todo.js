@@ -1,6 +1,7 @@
 // Core
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 // Tools
 import { useTodos } from '../../../../bus/todos/index';
@@ -11,11 +12,19 @@ import './Todo.scss';
 export const Todo = ({
   id,
   title,
-  description,
   deadline,
   completed,
+  todoTag,
 }, index) => {
   const { showTodoInfo } = useTodos();
+
+  const tagClasses = classNames('todo__tag', {
+    'todo__tag sketch-button': todoTag === 'Sketch',
+    'todo__tag spotify-button': todoTag === 'Spotify',
+    'todo__tag dribble-button': todoTag === 'Dribble',
+    'todo__tag behance-button': todoTag === 'Behance',
+    'todo__tag ux-button': todoTag === 'UX',
+  });
 
   return (
     <li
@@ -41,6 +50,9 @@ export const Todo = ({
           <h3 className="todo__todo-title">{title}</h3>
         </div>
         <span className="todo__todo-deadline-date">{deadline}</span>
+        <div className={tagClasses}>
+          {todoTag}
+        </div>
       </div>
     </li>
   );
@@ -49,7 +61,7 @@ export const Todo = ({
 Todo.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  todoTag: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
   deadline: PropTypes.string.isRequired,
 };

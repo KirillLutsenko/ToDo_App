@@ -1,7 +1,7 @@
 .todo {
   position: relative;
 
-  width: 50vw;
+  width: 100%;
   height: 70px;
 
   padding: 0 20px 0 20px;
@@ -30,7 +30,7 @@
   }
 
   &__todo-tittle-block {
-    width: 30vw;
+    width: 40vw;
   }
 
   &__todo-title {
@@ -40,19 +40,30 @@
     padding-right: 20px;
   }
 
-  &__todo-description {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.535);
-  }
-
   &__todo-deadlineDate {
     display: inline-block;
     width: 80px;
     height: 20px;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     color: #000;
   }
+
+  &__tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5f535325;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
 
   &:hover {
     transform: scale(1.02);

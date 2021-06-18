@@ -17,9 +17,11 @@ export const useTodos = () => {
     titleInputText,
     descriptionInputText,
     deadlineDate,
+    warnings,
     subtasks,
     todoInfo,
     visibilityTodoInfo,
+    tag,
   } = useSelector(state => state.todo);
 
   const {
@@ -31,19 +33,24 @@ export const useTodos = () => {
 
   const dispatch = useDispatch();
 
-  const setVisibleNewTaskForm = () => {
+  const closeForms = (event) => {
+    dispatch(todoActions.resetFormAction());
+    dispatch(todoActions.setVisibleNewTaskFormAction(false));
+  };
+
+  const setVisibleNewTaskForm = (event) => {
+    event.stopPropagation();
+
+    if (!visibleNewTaskForm) {
+      resetWarningErrors();
+    }
+
     dispatch(todoActions.setVisibleNewTaskFormAction(true));
     dispatch(todoActions.changeVisibilityTodoInfoAction(false));
   };
 
   const setCompleteStatus = () => {
     dispatch(todoActions.setCompleteStatusAction(!completeStatus));
-  };
-
-  const changeDeadlineDate = (event) => {
-    const { value } = event.target;
-
-    dispatch(todoActions.getDeadlineDateAction(value));
   };
 
   const createTodo = () => ({
@@ -53,6 +60,7 @@ export const useTodos = () => {
     deadline: deadlineDate,
     completed: completeStatus,
     subtaskList,
+    todoTag: tag,
   });
 
   const addTodo = async(newTodo) => {
@@ -66,6 +74,10 @@ export const useTodos = () => {
 
     dispatch(todoActions.todosFillAction(newTodoList));
     dispatch(todoActions.changeVisibilityTodoInfoAction(false));
+
+    if (!(newTodoList.length)) {
+      dispatch(todoActions.setInitialStateAction());
+    }
   };
 
   const setExternalCompleteStatus = (id) => {
@@ -80,6 +92,18 @@ export const useTodos = () => {
     dispatch(todoActions.todosFillAction(newTodoList));
   };
 
+  const changeTagErrorStatus = (value) => {
+    dispatch(todoActions.setTagFieldwarningAction(value));
+  };
+
+  const setTag = (_tag) => {
+    dispatch(todoActions.setTagAction(_tag));
+
+    if (_tag.length) {
+      changeTagErrorStatus(false);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -87,13 +111,32 @@ export const useTodos = () => {
       event.preventDefault();
     }
 
-    addTodo(createTodo());
-    dispatch(todoActions.setInitialStateAction());
-    dispatch(todoActions.setVisibleNewTaskFormAction(false));
+    if (titleInputText.length < 3) {
+      dispatch(todoActions.setTitleWarningAction(true));
+    }
+
+    if (subtaskList.length < 2) {
+      dispatch(todoActions.setSaubtasksWarningAction(true));
+    }
+
+    if (!tag) {
+      dispatch(todoActions.setTagFieldwarningAction(true));
+    }
+
+    if (titleInputText.length >= 3
+      && tag
+      && subtaskList.length > 1
+    ) {
+      addTodo(createTodo());
+      dispatch(todoActions.setInitialStateAction());
+      dispatch(todoActions.setVisibleNewTaskFormAction(false));
+    }
   };
 
   const changeSelectedTodoInfo = async(event) => {
     event.preventDefault();
+
+    const { title, todoTag } = todoInfo;
 
     if (event.keyCode === 'Enter') {
       event.preventDefault();
@@ -107,21 +150,50 @@ export const useTodos = () => {
         deadline: todoInfo.deadline,
         completed: todoInfo.completed,
         subtaskList: todoInfo.subtaskList,
+        todoTag: todoInfo.todoTag,
       }
       : todo
     ));
 
-    // eslint-disable-next-line no-console
-    console.log(newTodoList);
+    if (title.length < 3) {
+      dispatch(todoActions.setTitleWarningAction(true));
+    }
 
-    dispatch(todoActions.todosFillAction([...newTodoList]));
-    dispatch(todoActions.changeVisibilityTodoInfoAction(false));
+    if (todoInfo.subtaskList.length < 2) {
+      dispatch(todoActions.setSaubtasksWarningAction(true));
+    }
+
+    if (!todoTag) {
+      dispatch(todoActions.setTagFieldwarningAction(true));
+    }
+
+    if (title.length >= 3
+      && todoTag
+      && todoInfo.subtaskList.length > 1
+    ) {
+      dispatch(todoActions.todosFillAction([...newTodoList]));
+      dispatch(todoActions.changeVisibilityTodoInfoAction(false));
+    }
+  };
+
+  const changeTitleErrorStatus = (value) => {
+    dispatch(todoActions.setTitleWarningAction(value));
   };
 
   const changeTitleInputText = (event) => {
     const { value } = event.target;
 
     dispatch(todoActions.changeTitleInputTextAction(value));
+
+    if (value.length >= 3) {
+      changeTitleErrorStatus(false);
+    }
+  };
+
+  const changeDeadlineDate = (event) => {
+    const { value } = event.target;
+
+    dispatch(todoActions.getDeadlineDateAction(value));
   };
 
   const changeDescriptionInputText = (event) => {
@@ -149,6 +221,10 @@ export const useTodos = () => {
 
   const changeSubtaskList = (newSubtaskList) => {
     dispatch(todoActions.changeSubtaskListAction(newSubtaskList));
+
+    if (subtaskList.length > 1) {
+      dispatch(todoActions.setSaubtasksWarningAction(false));
+    }
   };
 
   const changeSelectedSubtaskText = (event, id) => {
@@ -200,14 +276,15 @@ export const useTodos = () => {
   const showTodoInfo = async(event, id) => {
     event.stopPropagation();
 
+    if (!visibilityTodoInfo) {
+      resetWarningErrors();
+    }
+
     const selectedTodoInfo = await todoList.find(todo => todo.id === id);
 
     dispatch(todoActions.setVisibleNewTaskFormAction(false));
     dispatch(todoActions.getTodoInfoAction(selectedTodoInfo));
     dispatch(todoActions.changeVisibilityTodoInfoAction(true));
-
-    // eslint-disable-next-line no-console
-    console.log(selectedTodoInfo);
   };
 
   const setSelectedTodoCompleteStatus = () => {
@@ -223,6 +300,10 @@ export const useTodos = () => {
     const { value } = event.target;
 
     dispatch(todoActions.changeTitleForSelectedTodoAction(value));
+
+    if (value.length > 2) {
+      dispatch(todoActions.setTitleWarningAction(false));
+    }
   };
 
   const changeDeadlineDateForSelectedTodo = (event) => {
@@ -239,6 +320,10 @@ export const useTodos = () => {
 
   const changeTodoSubtaskList = (newSubtaskList) => {
     dispatch(todoActions.changeTodoSubtaskListAction(newSubtaskList));
+
+    if (todoInfo.subtaskList.length > 1) {
+      dispatch(todoActions.setSaubtasksWarningAction(false));
+    }
   };
 
   const changeTodoSelectedSubtaskText = (event, id) => {
@@ -297,8 +382,22 @@ export const useTodos = () => {
       .setTodoSubtaskCompleteStatusAction(false));
   };
 
+  const changeTodoTag = (modifiedTag) => {
+    dispatch(todoActions.changeTodoTagAction(modifiedTag));
+  };
+
+  const resetWarningErrors = () => {
+    dispatch(todoActions.setTitleWarningAction(false));
+    dispatch(todoActions.setTagFieldwarningAction(false));
+    dispatch(todoActions.setSaubtasksWarningAction(false));
+  };
+
   const resetFormFields = () => {
     dispatch(todoActions.resetFormAction());
+  };
+
+  const resetTodoFormFields = () => {
+    dispatch(todoActions.resetEditingSelectedTodoFormAction());
   };
 
   return {
@@ -308,9 +407,12 @@ export const useTodos = () => {
     descriptionInputText,
     deadlineDate,
     completeStatus,
+    warnings,
     subtasks,
     todoInfo,
     visibilityTodoInfo,
+    tag,
+    closeForms,
     handleSubmit,
     deleteTodo,
     setExternalCompleteStatus,
@@ -324,6 +426,7 @@ export const useTodos = () => {
     addSubtask,
     changeSelectedSubtaskText,
     changeSelectedSubstaskCompleteStatus,
+    setTag,
     setVisibleNewTaskForm,
     showTodoInfo,
     setSelectedTodoCompleteStatus,
@@ -333,6 +436,8 @@ export const useTodos = () => {
     changeSelectedTodoInfo,
     changeTodoSelectedSubtaskText,
     changeTodoSelectedSubstaskCompleteStatus,
+    changeTodoTag,
     addTodoSubtask,
+    resetTodoFormFields,
   };
 };

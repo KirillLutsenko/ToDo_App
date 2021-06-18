@@ -1,3 +1,4 @@
+import { todaysDate } from '../../helpers';
 import {
   // TodoList Types
   TODOS_FILL,
@@ -13,6 +14,7 @@ import {
   CHANGE_SUBTASK_LIST,
   CHANGE_SELECTED_SUBTASK_TEXT,
   CHANGE_SELECTED_SUBTASK_COMPLETE_STATUS,
+  SET_TAG,
   // ChangeTodoInfo Types
   GET_TODO_INFO,
   SHOW_TODO_INFO,
@@ -20,15 +22,20 @@ import {
   CHANGE_TITLE_FOR_SELECTED_TODO,
   CHANGE_DEADLINE_FOR_SELECTED_TODO,
   CHANGE_DESCRIPTION_FOR_SELECTED_TODO,
-  SET_SELECTED_TODO_ID,
   CHANGE_TODO_INFO,
   CHANGE_TODO_SUBTASK_LIST,
   CHANGE_TODO_SUBTASK_INPUT_TEXT,
   // CHANGE_TODO_SELECTED_SUBTASK_TEXT,
   // CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
   SET_TODO_SUBTASK_COMPLETE_STATUS,
+  CHANGE_TODO_TAG,
+  RESET_EDITING_SELECTED_TODO_FORM,
   // Global Types
   SET_INITIAL_STATE,
+  SET_TITLE_WARNING,
+  SET_TAG_FIELD_WARNING,
+  SET_SUBTASKS_WARNING,
+  SET_DEADLINE_WARNING,
 } from './types';
 
 export const initialState = {
@@ -39,7 +46,13 @@ export const initialState = {
   completeStatus: false,
   titleInputText: '',
   descriptionInputText: '',
-  deadlineDate: '',
+  deadlineDate: todaysDate,
+  warnings: {
+    titleWarning: false,
+    tagFieldWarning: false,
+    subtasksWarning: false,
+    deadlineWarning: false,
+  },
   subtasks: {
     subtaskList: [{
       id: 1,
@@ -51,8 +64,8 @@ export const initialState = {
     selectedSubtaskText: '',
     selectedSubtaskCompleteStatus: false,
   },
+  tag: '',
   // ChangeTodoInfo State
-  selectedTodoId: 0,
   todoInfo: {
     id: 0,
     title: '',
@@ -65,12 +78,13 @@ export const initialState = {
     subtaskCompleteStatus: false,
     selectedSubtaskText: '',
     selectedSubtaskCompleteStatus: false,
+    todoTag: '',
   },
   visibilityTodoInfo: false,
 };
 
 export const todoReducer = (state = initialState, action) => {
-  const { todoInfo, subtasks } = state;
+  const { todoInfo, subtasks, warnings } = state;
 
   switch (action.type) {
     // TodoList Cases
@@ -161,13 +175,13 @@ export const todoReducer = (state = initialState, action) => {
         todoList: action.payload,
       };
 
-    // ChangeTodoInfo Cases
-    case SET_SELECTED_TODO_ID:
+    case SET_TAG:
       return {
         ...state,
-        selectedTodoId: action.payload,
+        tag: action.payload,
       };
 
+    // ChangeTodoInfo Cases
     case GET_TODO_INFO:
       return {
         ...state,
@@ -243,26 +257,71 @@ export const todoReducer = (state = initialState, action) => {
         },
       };
 
+    case CHANGE_TODO_TAG:
+      return {
+        ...state,
+        todoInfo: {
+          ...todoInfo,
+          todoTag: action.payload,
+        },
+      };
+
+    case RESET_EDITING_SELECTED_TODO_FORM:
+      return {
+        ...initialState,
+        visibilityTodoInfo: true,
+        todoList: state.todoList,
+        todoInfo: {
+          ...initialState.todoInfo,
+          deadline: todaysDate,
+        },
+      };
+
     // Global Cases
     case SET_INITIAL_STATE:
       return initialState;
 
-    case RESET_FORM:
+    case SET_TITLE_WARNING:
       return {
         ...state,
-        completeStatus: false,
-        titleInputText: '',
-        descriptionInputText: '',
-        deadlineDate: '',
-        subtasks: {
-          subtaskList: [{
-            id: 1,
-            title: '',
-            complete: false,
-          }],
-          subtaskInputText: '',
-          subtaskCompleteStatus: false,
+        warnings: {
+          ...warnings,
+          titleWarning: action.payload,
         },
+      };
+
+    case SET_TAG_FIELD_WARNING:
+      return {
+        ...state,
+        warnings: {
+          ...warnings,
+          tagFieldWarning: action.payload,
+        },
+      };
+
+    case SET_SUBTASKS_WARNING:
+      return {
+        ...state,
+        warnings: {
+          ...warnings,
+          subtasksWarning: action.payload,
+        },
+      };
+
+    case SET_DEADLINE_WARNING:
+      return {
+        ...state,
+        warnings: {
+          ...warnings,
+          deadlineWarning: action.payload,
+        },
+      };
+
+    case RESET_FORM:
+      return {
+        ...initialState,
+        todoList: state.todoList,
+        visibleNewTaskForm: true,
       };
 
     default:
