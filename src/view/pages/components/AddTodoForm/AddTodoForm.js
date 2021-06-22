@@ -19,7 +19,6 @@ export const AddTodoForm = () => {
   const {
     titleInputText,
     descriptionInputText,
-    deadlineDate,
     subtasks,
     warnings,
     tag,
@@ -37,7 +36,8 @@ export const AddTodoForm = () => {
   };
 
   const saveButtonClasses = classNames('add-todo-form__btn save-btn', {
-    disabled: (titleInputText > 0 && titleInputText <= 3)
+    disabled: (titleInputText.length > 0 && titleInputText.length < 3)
+      || !titleInputText
       || !tag
       || subtaskList.length < 2,
   });
@@ -62,42 +62,51 @@ export const AddTodoForm = () => {
           <DescriptionInput />
           <Checklist />
 
-          <div className="add-todo-form__direction-buttons">
-            <button
-              type="button"
-              className="add-todo-form__btn sketch-button"
-              onClick={() => setTag('Sketch')}
-            >
-              Sketch
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn spotify-button"
-              onClick={() => setTag('Spotify')}
-            >
-              Spotify
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn dribble-button"
-              onClick={() => setTag('Dribble')}
-            >
-              Dribble
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn behance-button"
-              onClick={() => setTag('Behance')}
-            >
-              Behance
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn ux-button"
-              onClick={() => setTag('UX')}
-            >
-              UX
-            </button>
+          <div className="add-todo-form__direction-buttons-block">
+            <div className="add-todo-form__direction-buttons">
+              <button
+                type="button"
+                className="add-todo-form__btn sketch-button"
+                onClick={() => setTag('Sketch')}
+              >
+                Sketch
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn spotify-button"
+                onClick={() => setTag('Spotify')}
+              >
+                Spotify
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn dribble-button"
+                onClick={() => setTag('Dribble')}
+              >
+                Dribble
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn behance-button"
+                onClick={() => setTag('Behance')}
+              >
+                Behance
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn ux-button"
+                onClick={() => setTag('UX')}
+              >
+                UX
+              </button>
+            </div>
+            {warnings.tagFieldWarning && (
+              <span
+                className="add-todo-form__warning-error warning-error tag-error"
+              >
+                Task tag field is required
+              </span>
+            )}
           </div>
 
           <div className="add-todo-form__submit-buttons">
@@ -115,32 +124,6 @@ export const AddTodoForm = () => {
             >
               Save
             </button>
-          </div>
-
-          <div className="add-todo-form__warning-error-block">
-            {warnings.titleWarning && (
-              <span className="add-todo-form__warning-error warning-error">
-                Task title is too short
-              </span>
-            )}
-
-            {deadlineDate === '' && (
-              <span className="add-todo-form__warning-error warning-error">
-                Deadline is required
-              </span>
-            )}
-
-            {warnings.tagFieldWarning && (
-              <span className="add-todo-form__warning-error warning-error">
-                Task tag field is required
-              </span>
-            )}
-
-            {warnings.subtasksWarning && (
-              <span className="add-todo-form__warning-error warning-error">
-                Task doesn&apos;t contain any sub-tasks
-              </span>
-            )}
           </div>
         </div>
       </form>

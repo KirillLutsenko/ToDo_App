@@ -9,6 +9,8 @@ import { useTodos } from '../../../../bus/todos/index';
 // Styles
 import './Todo.scss';
 
+const moment = require('moment');
+
 export const Todo = ({
   id,
   title,
@@ -16,7 +18,9 @@ export const Todo = ({
   completed,
   todoTag,
 }, index) => {
-  const { showTodoInfo } = useTodos();
+  const { showTodoInfo, setExternalCompleteStatus } = useTodos();
+
+  const transformedDate = moment(deadline).format('DD MMM YYYY');
 
   const tagClasses = classNames('todo__tag', {
     'todo__tag sketch-button': todoTag === 'Sketch',
@@ -33,25 +37,35 @@ export const Todo = ({
       role="presentation"
     >
       <div className="todo__todo-information">
-        <div className="todo__todo-status-block">
-          <label
-            htmlFor={`${index}`}
-            className="todo_todo-label"
+        <div className="todo__status-title-block">
+          <div className="todo__todo-status-block">
+            <label
+              htmlFor={`${index}`}
+              className="todo_todo-label"
+            >
+              <input
+                type="checkbox"
+                className="todo__complete-checkbox"
+                id={`${index}`}
+                checked={completed}
+                onChange={() => setExternalCompleteStatus(id)}
+              />
+            </label>
+          </div>
+          <div className="todo__todo-tittle-block">
+            <h3 className="todo__todo-title">{title}</h3>
+          </div>
+        </div>
+
+        <div className="todo__date-tag-block">
+          <span
+            className="todo__todo-deadline-date todo-deadline-date"
           >
-            <input
-              type="checkbox"
-              id={`${index}`}
-              checked={completed}
-              // onChange={setExternalCompleteStatus(id)}
-            />
-          </label>
-        </div>
-        <div className="todo__todo-tittle-block">
-          <h3 className="todo__todo-title">{title}</h3>
-        </div>
-        <span className="todo__todo-deadline-date">{deadline}</span>
-        <div className={tagClasses}>
-          {todoTag}
+            {transformedDate}
+          </span>
+          <div className={tagClasses}>
+            {todoTag}
+          </div>
         </div>
       </div>
     </li>

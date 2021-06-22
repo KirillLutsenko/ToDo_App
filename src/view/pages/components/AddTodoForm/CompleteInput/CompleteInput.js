@@ -1,5 +1,6 @@
 // Core
 import React from 'react';
+import classNames from 'classnames';
 
 // Tools
 import { useTodos } from '../../../../../bus/todos/index';
@@ -12,6 +13,10 @@ export const CompleteInput = () => {
     completeStatus,
     setCompleteStatus,
   } = useTodos();
+
+  const checkboxStyle = classNames('add-todo-form__complete-checkbox-text', {
+    'add-todo-form__complete-checkbox-text-selected': completeStatus,
+  });
 
   return (
     <label
@@ -27,7 +32,7 @@ export const CompleteInput = () => {
         checked={completeStatus}
       />
       <span
-        className="add-todo-form__complete-checkbox-text"
+        className={checkboxStyle}
       >
         Mark as complete
       </span>

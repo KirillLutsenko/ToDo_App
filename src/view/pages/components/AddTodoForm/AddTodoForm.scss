@@ -1,8 +1,40 @@
-.add-todo-form {
+ .add-todo-form {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
+
+  &__complete-checkbox {
+    position: relative;
+    right: 4px;
+    bottom: 1px;
+    width: 16px;
+    height: 16px;
+    appearance: none;
+    border: 1px solid rgba(0, 0, 0, 0.535);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+
+    &:checked:before {
+      content: "✓";
+      position: absolute;
+      left: 1px;
+      bottom: -2px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #02a02f;
+    }
+  }
+
+  &__deadline {
+    margin-bottom: 0;
+  }
+
+  &__label {
+    position: relative;
+    font-weight: 600;
+    color: #000;
+  }
 
   &__main-menu {
     padding: 20px 15px 15px 20px;
@@ -12,12 +44,30 @@
     margin: 20px 0;
   }
 
+  &__subtasks {
+    position: relative;
+  }
+
   &__subtasks-block {
     display: flex;
+    flex-direction: column;
+  }
+
+  &__direction-buttons-block {
+    position: relative;
   }
 
   &__submit-buttons {
     margin: 30px 0 50px 0;
+  }
+
+  &__checkboxes-block {
+    display: flex;
+    margin-top: 18px;
+  }
+
+  &__subtasks-block-title {
+    font-weight: 600;
   }
 
   &__warning-error-block {
@@ -27,15 +77,14 @@
     font-size: 12px;
   }
 
-
   &__btn {
-    width: 100px;
+    width: 60px;
     height: 30px;
     border: none;
     border-radius: 5px;
     color: #fff;
     opacity: 0.5;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -54,6 +103,13 @@
     display: flex;
     flex-direction: column;
   }
+
+  &__warning-error {
+    position: absolute;
+    top: 25px;
+    font-size: 12px;
+    color: red;
+  }
 }
 
   .sketch-button,
@@ -65,22 +121,27 @@
 
   .sketch-button {
     color: orange;
+    background-color: rgba(255, 166, 0, 0.16);
   }
 
   .spotify-button {
     color: rgb(12, 192, 12);
+    background-color: rgb(12, 192, 12, 0.16);
   }
 
   .dribble-button {
     color: rgb(232, 119, 138);
+    background-color: rgb(232, 119, 138, 0.16);
   }
 
   .behance-button {
     color: rgb(68, 41, 191);
+    background-color: rgb(68, 41, 191, 0.16);
   }
 
   .ux-button {
     color: rgb(128, 128, 128);
+    background-color: rgb(128, 128, 128, 0.16);
   }
 
 .add-todo-form__btn.disabled {
@@ -99,4 +160,15 @@
 
 .reset-btn {
   background-color: #fd4d96;
+}
+
+.tag-error {
+  top: 35px;
+}
+
+.subtasks-error {
+  position: absolute;
+  font-size: 12px;
+  color: red;
+  bottom: -20px;
 }

@@ -19,23 +19,31 @@ export const DeadlineInput = () => {
 
   const todaysDate = moment().format('YYYY-MM-DD');
 
+  const formattedDate = moment(deadline).format('DD MMM YYYY');
+
   return (
     <div className="add-todo-form__deadline">
       <label
         htmlFor="form-calendar"
         className="add-todo-form__label"
       >
-        Due to
+
+        <span className="deadline__title">Due to</span>
+
+        <span className="deadline__text">
+          {formattedDate}
+        </span>
+
+        <input
+          type="date"
+          id="form-calendar"
+          name="calendar"
+          value={deadline}
+          min={todaysDate}
+          className="add-todo-form__deadline-input deadline-input"
+          onChange={changeDeadlineDateForSelectedTodo}
+        />
       </label>
-      <input
-        type="date"
-        id="form-calendar"
-        name="calendar"
-        value={deadline}
-        min={todaysDate}
-        className="add-todo-form__deadline-input"
-        onChange={changeDeadlineDateForSelectedTodo}
-      />
     </div>
   );
 };

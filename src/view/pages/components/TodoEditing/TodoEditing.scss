@@ -1,5 +1,22 @@
-.delete-todo-btn {
-  width: 130px;
-  margin-left: 10px;
-  background: rgba(213, 18, 18, 0.857);
+.add-todo-block {
+  &__complete-delete-block {
+    display: flex;
+    justify-content: space-between;
+    width: 360px;
+    border-bottom: 1px rgba(0, 0, 0, 0.131) solid;
+  }
+}
+
+.add-todo-form {
+  &__delete-todo-btn {
+    display: block;
+    font-size: 16px;
+    width: 30px;
+    margin: 15px 10px 0 0;
+    height: 20px;
+    color: red;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+  }
 }

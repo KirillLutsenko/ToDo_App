@@ -1,16 +1,14 @@
 .todo-list {
-  width: 450px;
   margin: 70px 10px;
-
   list-style: none;
-}
-
-.long-todo-list {
-  width: 100%;
+  width: 60vw;
 }
 
 .todo-block {
   display: flex;
-  width: 90vw;
   justify-content: space-between;
+}
+
+.long-todo-list {
+  width: 100vw;
 }

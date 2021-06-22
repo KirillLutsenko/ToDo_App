@@ -31,29 +31,37 @@ export const Checklist = () => {
 
   return (
     <div>
+      <span className="add-todo-form__subtasks-block-title">
+        Checklist
+      </span>
+
       {subtaskList.map((subtask, index) => (
         <div
           className="add-todo-form__subtasks-block"
           key={subtask.id}
         >
-          <input
-            type="checkbox"
-            name="subtask-checkbox"
-            className="add-todo-form__complete-checkbox"
-            checked={subtask.complete}
-            onChange={
-              () => changeTodoSelectedSubstaskCompleteStatus(subtask.id)
-            }
-          />
-          <input
-            type="text"
-            placeholder="Add more"
-            name="subtask-value"
-            className="add-todo-form__subtask-input"
-            value={subtask.title}
-            onChange={event => changeTodoSelectedSubtaskText(event, subtask.id)}
-            onKeyDown={event => newSubtaskKeyDown(event, index)}
-          />
+          <div className="add-todo-form__checkboxes-block">
+            <input
+              type="checkbox"
+              name="subtask-checkbox"
+              className="add-todo-form__complete-checkbox"
+              checked={subtask.complete}
+              onChange={
+                () => changeTodoSelectedSubstaskCompleteStatus(subtask.id)
+              }
+            />
+            <input
+              type="text"
+              placeholder="Add more"
+              name="subtask-value"
+              className="add-todo-form__subtask-input"
+              value={subtask.title}
+              onChange={
+                event => changeTodoSelectedSubtaskText(event, subtask.id)
+              }
+              onKeyDown={event => newSubtaskKeyDown(event, index)}
+            />
+          </div>
         </div>
       ))}
     </div>

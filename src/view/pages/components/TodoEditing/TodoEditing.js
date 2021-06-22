@@ -54,7 +54,16 @@ export const TodoEditing = () => {
         onKeyDown={formKeyDown}
         role="presentation"
       >
-        <CompleteInput />
+        <div className="add-todo-block__complete-delete-block">
+          <CompleteInput />
+          <button
+            type="button"
+            className="add-todo-form__delete-todo-btn"
+            onClick={deleteTodo}
+          >
+            X
+          </button>
+        </div>
         <div className="add-todo-form__main-menu">
           <TitleInput />
           <DeadlineInput />
@@ -113,13 +122,6 @@ export const TodoEditing = () => {
               type="submit"
             >
               Save
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn delete-todo-btn"
-              onClick={deleteTodo}
-            >
-              Delete Task
             </button>
           </div>
 

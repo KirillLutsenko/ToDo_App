@@ -2,11 +2,7 @@
   &__title {
     display: flex;
     flex-direction: column;
-  }
-
-  &__label {
-    margin-bottom: 10px;
-    color: rgba(0, 0, 0, 0.535);
+    position: relative;
   }
 
   &__input {
@@ -15,17 +11,17 @@
     margin-right: 15px;
     padding: 15px 0;
     margin-bottom: 10px;
-  
     background-color: inherit;
     border: none;
-  
-    color: #a59292;
     font-size: 14px;
-  
     outline: none;
+  }
+}
 
-    &::placeholder {
-      color: #a59292;
-    }
+.title-input {
+  &::-webkit-input-placeholder  {
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    font-size: 16px;
   }
 }

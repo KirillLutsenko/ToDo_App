@@ -1,8 +1,32 @@
-.add-todo-form {
-  &__deadline {
-    display: flex;
-    flex-direction: column;
-    width: 150px;
-    margin-bottom: 20px;
+.deadline {
+  &__text {
+    position: absolute;
+    top: 40px;
+    left: 25px;
+    font-size: 14px;
+  }
+}
+
+.deadline-input {
+  margin-top: 15px;
+  border: none;
+  outline: none;
+  margin-bottom: 45px;
+
+  &::-webkit-calendar-picker-indicator {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.7;
+    top: 40px;
+    left: 8px;
+    width: 15px;
+    height: 15px;
+    margin-left: -10px;
+    background-image: url('../../../../images/calendar-logo.png');
+    cursor: pointer;
+  }
+
+  &::-webkit-datetime-edit-fields-wrapper {
+    display: none;
   }
 }

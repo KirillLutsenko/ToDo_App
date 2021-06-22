@@ -1,6 +1,7 @@
 .add-todo-form {
   &__checkbox-block {
     display: flex;
+    width: 360px;
     color: rgba(0, 0, 0, 0.535);
     padding: 15px 15px 15px 20px;
     text-transform: uppercase;
@@ -8,6 +9,14 @@
     font-weight: 600;
     border-bottom: 1px rgba(0, 0, 0, 0.131) solid;
     cursor: pointer;
+  }
+
+  &__complete-checkbox-text {
+    color: inherit;
+  }
+
+  &__complete-checkbox-text-selected {
+    color: #02a02f;
   }
   
   &__complete-checkbox {
@@ -21,6 +30,7 @@
     border-radius: 2px;
     outline: none;
     cursor: pointer;
+    background-color: #f7e631cd;
 
     &:checked:before {
       content: "✓";
