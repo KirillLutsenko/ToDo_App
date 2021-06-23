@@ -33,16 +33,17 @@ export const TodoEditing = () => {
   };
 
   const saveButtonClasses = classNames('add-todo-form__btn save-btn', {
-    disabled: (todoInfo.title.length > 0 && todoInfo.title.length <= 3)
+    disabled: (todoInfo.title.length > 0 && todoInfo.title.length < 3)
       || !todoInfo.todoTag
       || todoInfo.subtaskList.length < 2,
   });
 
   const resetButtonClasses = classNames('add-todo-form__btn reset-btn', {
-    disabled: todoInfo.title.length < 3
-      && !(todoInfo.description)
+    disabled: !todoInfo.title
+      && !todoInfo.description
       && todoInfo.deadline === todaysDate
-      && todoInfo.subtaskList.length > 1,
+      && todoInfo.subtaskList.length === 1
+      && !todoInfo.todoTag,
   });
 
   return (
@@ -70,42 +71,50 @@ export const TodoEditing = () => {
           <DescriptionInput />
           <Checklist />
 
-          <div className="add-todo-form__direction-buttons">
-            <button
-              type="button"
-              className="add-todo-form__btn sketch-button"
-              onClick={() => changeTodoTag('Sketch')}
-            >
-              Sketch
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn spotify-button"
-              onClick={() => changeTodoTag('Spotify')}
-            >
-              Spotify
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn dribble-button"
-              onClick={() => changeTodoTag('Dribble')}
-            >
-              Dribble
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn behance-button"
-              onClick={() => changeTodoTag('Behance')}
-            >
-              Behance
-            </button>
-            <button
-              type="button"
-              className="add-todo-form__btn ux-button"
-              onClick={() => changeTodoTag('UX')}
-            >
-              UX
-            </button>
+          <div className="add-todo-form__direction-buttons-block">
+            <div className="add-todo-form__direction-buttons">
+              <button
+                type="button"
+                className="add-todo-form__btn sketch-button"
+                onClick={() => changeTodoTag('Sketch')}
+              >
+                Sketch
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn spotify-button"
+                onClick={() => changeTodoTag('Spotify')}
+              >
+                Spotify
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn dribble-button"
+                onClick={() => changeTodoTag('Dribble')}
+              >
+                Dribble
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn behance-button"
+                onClick={() => changeTodoTag('Behance')}
+              >
+                Behance
+              </button>
+              <button
+                type="button"
+                className="add-todo-form__btn ux-button"
+                onClick={() => changeTodoTag('UX')}
+              >
+                UX
+              </button>
+            </div>
+
+            {warnings.tagFieldWarning && (
+              <span className="add-todo-form__warning-error warning-error">
+                Task tag field is required
+              </span>
+            )}
           </div>
 
           <div className="add-todo-form__submit-buttons">
@@ -123,32 +132,6 @@ export const TodoEditing = () => {
             >
               Save
             </button>
-          </div>
-
-          <div className="add-todo-form__warning-error-block">
-            {warnings.titleWarning && (
-              <span className="add-todo-form__warning-error warning-error">
-                Task title is too short
-              </span>
-            )}
-
-            {todoInfo.deadline === '' && (
-              <span className="add-todo-form__warning-error warning-error">
-                Deadline is required
-              </span>
-            )}
-
-            {warnings.tagFieldWarning && (
-              <span className="add-todo-form__warning-error warning-error">
-                Task tag field is required
-              </span>
-            )}
-
-            {warnings.subtasksWarning && (
-              <span className="add-todo-form__warning-error warning-error">
-                Task doesn&apos;t contain any sub-tasks
-              </span>
-            )}
           </div>
         </div>
       </form>

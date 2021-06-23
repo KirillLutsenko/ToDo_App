@@ -10,6 +10,7 @@ import './Checklist.scss';
 export const Checklist = () => {
   const {
     todoInfo,
+    warnings,
     changeTodoSelectedSubstaskCompleteStatus,
     changeTodoSelectedSubtaskText,
     addTodoSubtask,
@@ -64,6 +65,12 @@ export const Checklist = () => {
           </div>
         </div>
       ))}
+
+      {warnings.subtasksWarning && (
+        <span className="add-todo-form__warning-error warning-error">
+          Task doesn&apos;t contain any sub-tasks
+        </span>
+      )}
     </div>
   );
 };

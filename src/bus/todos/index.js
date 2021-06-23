@@ -264,8 +264,8 @@ export const useTodos = () => {
     changeSubtaskList(newSubtaskList);
   };
 
-  const addSubtask = async() => {
-    const newSubtaskList = await [...subtaskList, newSubtask()];
+  const addSubtask = () => {
+    const newSubtaskList = [...subtaskList, newSubtask()];
 
     changeSubtaskList(newSubtaskList);
     dispatch(todoActions.changeSubtaskInputTextAction(''));
@@ -280,7 +280,7 @@ export const useTodos = () => {
       resetWarningErrors();
     }
 
-    const selectedTodoInfo = await todoList.find(todo => todo.id === id);
+    const selectedTodoInfo = todoList.find(todo => todo.id === id);
 
     dispatch(todoActions.setVisibleNewTaskFormAction(false));
     dispatch(todoActions.getTodoInfoAction(selectedTodoInfo));

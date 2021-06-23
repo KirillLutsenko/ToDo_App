@@ -10,6 +10,7 @@ import './TitleInput.scss';
 export const TitleInput = () => {
   const {
     todoInfo,
+    warnings,
     changeTitleForSelectedTodo,
   } = useTodos();
 
@@ -17,20 +18,20 @@ export const TitleInput = () => {
 
   return (
     <div className="add-todo-form__title">
-      <label
-        htmlFor="title-input"
-        className="add-todo-form__label"
-      >
-        New task
-      </label>
       <input
         type="text"
         id="title-input"
         value={title}
-        className="add-todo-form__input"
+        className="add-todo-form__input  title-input"
         onChange={changeTitleForSelectedTodo}
         placeholder="Task title"
       />
+
+      {warnings.titleWarning && (
+        <span className="add-todo-form__warning-error">
+          Task title is too short
+        </span>
+      )}
     </div>
   );
 };

@@ -32,7 +32,6 @@ p {
 
   &__todo-body {
     display: flex;
-    align-items: center;
     justify-content: center;
     height: 90vh;
     padding: 0 10px;
@@ -42,7 +41,8 @@ p {
     display: flex;
     position: relative;
     width: 360px;
-    margin: 70px 10px;
+    height: fit-content;
+    margin: 70px 10px 0 0;
     background-color: #fff;
   }
 }

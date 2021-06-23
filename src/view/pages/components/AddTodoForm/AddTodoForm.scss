@@ -3,29 +3,6 @@
   display: flex;
   flex-direction: column;
 
-  &__complete-checkbox {
-    position: relative;
-    right: 4px;
-    bottom: 1px;
-    width: 16px;
-    height: 16px;
-    appearance: none;
-    border: 1px solid rgba(0, 0, 0, 0.535);
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
-
-    &:checked:before {
-      content: "✓";
-      position: absolute;
-      left: 1px;
-      bottom: -2px;
-      font-size: 20px;
-      font-weight: 700;
-      color: #02a02f;
-    }
-  }
-
   &__deadline {
     margin-bottom: 0;
   }
@@ -38,6 +15,7 @@
 
   &__main-menu {
     padding: 20px 15px 15px 20px;
+    margin-bottom: 20px;
   }
 
   &__direction-buttons {
@@ -58,7 +36,7 @@
   }
 
   &__submit-buttons {
-    margin: 30px 0 50px 0;
+    margin-top: 30px;
   }
 
   &__checkboxes-block {

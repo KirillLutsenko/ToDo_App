@@ -14,6 +14,7 @@ import { useTodos } from '../../../../bus/todos/index';
 
 // Styles
 import './AddTodoForm.scss';
+import { todaysDate } from '../../../../helpers';
 
 export const AddTodoForm = () => {
   const {
@@ -21,6 +22,7 @@ export const AddTodoForm = () => {
     descriptionInputText,
     subtasks,
     warnings,
+    deadlineDate,
     tag,
     handleSubmit,
     resetFormFields,
@@ -43,7 +45,11 @@ export const AddTodoForm = () => {
   });
 
   const resetButtonClasses = classNames('add-todo-form__btn reset-btn', {
-    disabled: !(titleInputText) && !(descriptionInputText),
+    disabled: !titleInputText
+      && !descriptionInputText
+      && !tag
+      && deadlineDate === todaysDate
+      && subtaskList.length === 1,
   });
 
   return (

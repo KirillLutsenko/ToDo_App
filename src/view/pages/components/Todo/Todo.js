@@ -49,6 +49,7 @@ export const Todo = ({
                 id={`${index}`}
                 checked={completed}
                 onChange={() => setExternalCompleteStatus(id)}
+                onClick={event => event.stopPropagation()}
               />
             </label>
           </div>

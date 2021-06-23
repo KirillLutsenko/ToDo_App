@@ -44,6 +44,12 @@ export const DeadlineInput = () => {
           onChange={changeDeadlineDateForSelectedTodo}
         />
       </label>
+
+      {todoInfo.deadline === '' && (
+        <span className="add-todo-form__warning-error warning-error">
+          Deadline is required
+        </span>
+      )}
     </div>
   );
 };
