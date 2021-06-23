@@ -67,7 +67,7 @@ export const Checklist = () => {
       ))}
 
       {warnings.subtasksWarning && (
-        <span className="add-todo-form__warning-error warning-error">
+        <span className="add-todo-form__subtasks-error subtasks-error">
           Task doesn&apos;t contain any sub-tasks
         </span>
       )}

@@ -1,4 +1,19 @@
 .add-todo-form {
+  &__subtasks {
+    position: relative;
+  }
+
+  &__subtasks-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__subtasks-block-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
   &__subtask-label {
     display: flex;
     align-items: flex-start;
@@ -23,4 +38,14 @@
       color: #a59292;
     }
   }
+
+  &__checkboxes-block {
+    display: flex;
+  }
+}
+
+.subtasks-error {
+  position: absolute;
+  font-size: 12px;
+  color: red;
 }

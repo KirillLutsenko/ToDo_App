@@ -1,7 +1,7 @@
 .deadline {
   &__text {
     position: absolute;
-    top: 33px;
+    top: 25px;
     left: 25px;
     font-size: 14px;
   }
@@ -20,18 +20,19 @@
 
   &::-webkit-calendar-picker-indicator {
     position: absolute;
-    z-index: 0;
     opacity: 0.7;
-    top: 33px;
-    left: 8px;
+    top: 25px;
+    right: 119px;
     width: 15px;
     height: 15px;
-    margin-left: -10px;
     background-image: url('../../../../images/calendar-logo.png');
     cursor: pointer;
   }
 
   &::-webkit-datetime-edit-fields-wrapper {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    top: 25px;
+    left: 0;
   }
 }

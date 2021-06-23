@@ -1,6 +1,5 @@
 // Core
 import React from 'react';
-import classNames from 'classnames';
 
 // Components
 import { TitleInput } from './TitleInput';
@@ -8,43 +7,18 @@ import { DescriptionInput } from './DescriptionInput';
 import { DeadlineInput } from './DeadlineInput';
 import { CompleteInput } from './CompleteInput';
 import { Checklist } from './Checklist';
+import { Tagblock } from './TagBlock/Tagblock';
+import { SubmitButtons } from './SubmitButtons';
 
 // Tools
 import { useTodos } from '../../../../bus/todos/index';
+import { formKeyDown } from '../../../../helpers';
 
 // Styles
 import './TodoEditing.scss';
-import { todaysDate } from '../../../../helpers';
 
 export const TodoEditing = () => {
-  const {
-    warnings,
-    todoInfo,
-    changeSelectedTodoInfo,
-    deleteTodo,
-    changeTodoTag,
-    resetTodoFormFields,
-  } = useTodos();
-
-  const formKeyDown = (event) => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-    }
-  };
-
-  const saveButtonClasses = classNames('add-todo-form__btn save-btn', {
-    disabled: (todoInfo.title.length > 0 && todoInfo.title.length < 3)
-      || !todoInfo.todoTag
-      || todoInfo.subtaskList.length < 2,
-  });
-
-  const resetButtonClasses = classNames('add-todo-form__btn reset-btn', {
-    disabled: !todoInfo.title
-      && !todoInfo.description
-      && todoInfo.deadline === todaysDate
-      && todoInfo.subtaskList.length === 1
-      && !todoInfo.todoTag,
-  });
+  const { changeSelectedTodoInfo, deleteTodo } = useTodos();
 
   return (
     <div className="app__add-todo-block add-todo-block">
@@ -70,69 +44,8 @@ export const TodoEditing = () => {
           <DeadlineInput />
           <DescriptionInput />
           <Checklist />
-
-          <div className="add-todo-form__direction-buttons-block">
-            <div className="add-todo-form__direction-buttons">
-              <button
-                type="button"
-                className="add-todo-form__btn sketch-button"
-                onClick={() => changeTodoTag('Sketch')}
-              >
-                Sketch
-              </button>
-              <button
-                type="button"
-                className="add-todo-form__btn spotify-button"
-                onClick={() => changeTodoTag('Spotify')}
-              >
-                Spotify
-              </button>
-              <button
-                type="button"
-                className="add-todo-form__btn dribble-button"
-                onClick={() => changeTodoTag('Dribble')}
-              >
-                Dribble
-              </button>
-              <button
-                type="button"
-                className="add-todo-form__btn behance-button"
-                onClick={() => changeTodoTag('Behance')}
-              >
-                Behance
-              </button>
-              <button
-                type="button"
-                className="add-todo-form__btn ux-button"
-                onClick={() => changeTodoTag('UX')}
-              >
-                UX
-              </button>
-            </div>
-
-            {warnings.tagFieldWarning && (
-              <span className="add-todo-form__warning-error warning-error">
-                Task tag field is required
-              </span>
-            )}
-          </div>
-
-          <div className="add-todo-form__submit-buttons">
-            <button
-              type="button"
-              className={resetButtonClasses}
-              onClick={resetTodoFormFields}
-            >
-              Reset
-            </button>
-
-            <button
-              className={saveButtonClasses}
-              type="submit"
-            >
-              Save
-            </button>
-          </div>
+          <Tagblock />
+          <SubmitButtons />
         </div>
       </form>
     </div>

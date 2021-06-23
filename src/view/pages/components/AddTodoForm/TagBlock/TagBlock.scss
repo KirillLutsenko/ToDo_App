@@ -1,0 +1,45 @@
+.add-todo-form {
+  &__direction-buttons-block {
+    position: relative;
+  }
+
+  &__direction-buttons {
+    margin: 20px 0;
+  }
+}
+
+.sketch-button,
+.spotify-button,
+.dribble-button,
+.behance-button {
+  margin-right: 5px;
+}
+
+.sketch-button {
+  color: orange;
+  background-color: rgba(255, 166, 0, 0.12);
+}
+
+.spotify-button {
+  color: rgb(12, 192, 12);
+  background-color: rgb(12, 192, 12, 0.12);
+}
+
+.dribble-button {
+  color: rgb(232, 119, 138);
+  background-color: rgb(232, 119, 138, 0.12);
+}
+
+.behance-button {
+  color: rgb(68, 41, 191);
+  background-color: rgb(68, 41, 191, 0.12);
+}
+
+.ux-button {
+  color: rgb(128, 128, 128);
+  background-color: rgb(128, 128, 128, 0.12);
+}
+
+.tag-error {
+  margin-top: 10px;
+}
