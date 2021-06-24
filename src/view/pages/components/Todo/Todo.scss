@@ -1,6 +1,6 @@
 .todo {
   position: relative;
-  height: 60px;
+  height: max-content;
   padding: 0 20px 0 20px;
   background-color: #fff;
   overflow: hidden;
@@ -40,8 +40,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  
-    height: 60px;
+    padding: 15px 0;
     border-bottom: 2px #eee14d75 solid;
   }
 

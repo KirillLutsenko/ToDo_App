@@ -1,6 +1,11 @@
 import {
-  // TodoList Types
+  // General Types
   TODOS_FILL,
+  SET_INITIAL_STATE,
+  SET_TITLE_WARNING,
+  SET_TAG_FIELD_WARNING,
+  SET_SUBTASKS_WARNING,
+  SET_DEADLINE_WARNING,
   // AddTodoForm Types
   SHOW_NEW_TASK_FORM,
   CHOOSE_COMPLETE_STATUS,
@@ -8,10 +13,10 @@ import {
   CHANGE_DESCRIPTION_INPUT_TEXT,
   GET_DEADLINE_DATE,
   RESET_FORM,
-  CHANGE_SUBTASK_INPUT_TEXT,
   SET_SUBTASK_COMPLETE_STATUS,
-  CHANGE_SUBTASK_LIST,
+  CHANGE_SUBTASK_INPUT_TEXT,
   CHANGE_SELECTED_SUBTASK_TEXT,
+  CHANGE_SUBTASK_LIST,
   CHANGE_SELECTED_SUBTASK_COMPLETE_STATUS,
   SET_TAG,
   // ChangeTodoInfo Types
@@ -24,23 +29,40 @@ import {
   CHANGE_TODO_INFO,
   CHANGE_TODO_SUBTASK_LIST,
   CHANGE_TODO_SUBTASK_INPUT_TEXT,
-  CHANGE_TODO_SELECTED_SUBTASK_TEXT,
-  CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
   SET_TODO_SUBTASK_COMPLETE_STATUS,
   CHANGE_TODO_TAG,
   RESET_EDITING_SELECTED_TODO_FORM,
-  // Global Types
-  SET_INITIAL_STATE,
-  SET_TITLE_WARNING,
-  SET_TAG_FIELD_WARNING,
-  SET_SUBTASKS_WARNING,
-  SET_DEADLINE_WARNING,
 } from './types';
 
 export const todoActions = Object.freeze({
-  // TodoList Actions
+  // General Actions
   todosFillAction: payload => ({
     type: TODOS_FILL,
+    payload,
+  }),
+
+  setInitialStateAction: payload => ({
+    type: SET_INITIAL_STATE,
+    payload,
+  }),
+
+  setTitleWarningAction: payload => ({
+    type: SET_TITLE_WARNING,
+    payload,
+  }),
+
+  setTagFieldwarningAction: payload => ({
+    type: SET_TAG_FIELD_WARNING,
+    payload,
+  }),
+
+  setSaubtasksWarningAction: payload => ({
+    type: SET_SUBTASKS_WARNING,
+    payload,
+  }),
+
+  setDeadlineWarningAction: payload => ({
+    type: SET_DEADLINE_WARNING,
     payload,
   }),
 
@@ -147,16 +169,6 @@ export const todoActions = Object.freeze({
     payload,
   }),
 
-  changeTodoSelectedSubtaskTextAction: payload => ({
-    type: CHANGE_TODO_SELECTED_SUBTASK_TEXT,
-    payload,
-  }),
-
-  changeTodoSelectedSubtaskCompleteStatus: payload => ({
-    type: CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
-    payload,
-  }),
-
   setTodoSubtaskCompleteStatusAction: payload => ({
     type: SET_TODO_SUBTASK_COMPLETE_STATUS,
     payload,
@@ -174,32 +186,6 @@ export const todoActions = Object.freeze({
 
   resetEditingSelectedTodoFormAction: payload => ({
     type: RESET_EDITING_SELECTED_TODO_FORM,
-    payload,
-  }),
-
-  // Global Actions
-  setInitialStateAction: payload => ({
-    type: SET_INITIAL_STATE,
-    payload,
-  }),
-
-  setTitleWarningAction: payload => ({
-    type: SET_TITLE_WARNING,
-    payload,
-  }),
-
-  setTagFieldwarningAction: payload => ({
-    type: SET_TAG_FIELD_WARNING,
-    payload,
-  }),
-
-  setSaubtasksWarningAction: payload => ({
-    type: SET_SUBTASKS_WARNING,
-    payload,
-  }),
-
-  setDeadlineWarningAction: payload => ({
-    type: SET_DEADLINE_WARNING,
     payload,
   }),
 });

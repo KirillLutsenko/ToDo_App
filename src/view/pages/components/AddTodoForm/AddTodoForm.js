@@ -18,12 +18,12 @@ import { formKeyDown } from '../../../../helpers';
 import './AddTodoForm.scss';
 
 export const AddTodoForm = () => {
-  const { handleSubmit } = useTodos();
+  const { addTododFormSubmit } = useTodos();
 
   return (
     <div className="app__add-todo-block add-todo-block">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={addTododFormSubmit}
         className="add-todo-block__add-todo-form add-todo-form"
         onKeyDown={formKeyDown}
         onClick={event => event.stopPropagation()}

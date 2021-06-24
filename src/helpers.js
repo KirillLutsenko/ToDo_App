@@ -1,6 +1,6 @@
-// reducer, DeadlineInput, SubmitButton, TodoEditing
 const moment = require('moment');
 
+// reducer, DeadlineInput, SubmitButton, TodoEditing
 export const todaysDate = moment().format('YYYY-MM-DD');
 
 // AddTodoForm

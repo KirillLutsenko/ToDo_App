@@ -1,7 +1,12 @@
 import { todaysDate } from '../../helpers';
 import {
-  // TodoList Types
+  // General Types
   TODOS_FILL,
+  SET_INITIAL_STATE,
+  SET_TITLE_WARNING,
+  SET_TAG_FIELD_WARNING,
+  SET_SUBTASKS_WARNING,
+  SET_DEADLINE_WARNING,
   // AddTodoForm Types
   SHOW_NEW_TASK_FORM,
   CHOOSE_COMPLETE_STATUS,
@@ -25,17 +30,9 @@ import {
   CHANGE_TODO_INFO,
   CHANGE_TODO_SUBTASK_LIST,
   CHANGE_TODO_SUBTASK_INPUT_TEXT,
-  // CHANGE_TODO_SELECTED_SUBTASK_TEXT,
-  // CHANGE_TODO_SELECTED_SUBTASK_COMPLETE_STATUS,
   SET_TODO_SUBTASK_COMPLETE_STATUS,
   CHANGE_TODO_TAG,
   RESET_EDITING_SELECTED_TODO_FORM,
-  // Global Types
-  SET_INITIAL_STATE,
-  SET_TITLE_WARNING,
-  SET_TAG_FIELD_WARNING,
-  SET_SUBTASKS_WARNING,
-  SET_DEADLINE_WARNING,
 } from './types';
 
 export const initialState = {
@@ -62,7 +59,6 @@ export const initialState = {
     subtaskInputText: '',
     subtaskCompleteStatus: false,
     selectedSubtaskText: '',
-    selectedSubtaskCompleteStatus: false,
   },
   tag: '',
   // ChangeTodoInfo State
@@ -91,11 +87,57 @@ export const todoReducer = (state = initialState, action) => {
   const { todoInfo, subtasks, warnings } = state;
 
   switch (action.type) {
-    // TodoList Cases
+    // General Cases
     case TODOS_FILL:
       return {
         ...state,
         todoList: action.payload,
+      };
+
+    case SET_INITIAL_STATE:
+      return initialState;
+
+    case SET_TITLE_WARNING:
+      return {
+        ...state,
+        warnings: {
+          ...warnings,
+          titleWarning: action.payload,
+        },
+      };
+
+    case SET_TAG_FIELD_WARNING:
+      return {
+        ...state,
+        warnings: {
+          ...warnings,
+          tagFieldWarning: action.payload,
+        },
+      };
+
+    case SET_SUBTASKS_WARNING:
+      return {
+        ...state,
+        warnings: {
+          ...warnings,
+          subtasksWarning: action.payload,
+        },
+      };
+
+    case SET_DEADLINE_WARNING:
+      return {
+        ...state,
+        warnings: {
+          ...warnings,
+          deadlineWarning: action.payload,
+        },
+      };
+
+    case RESET_FORM:
+      return {
+        ...initialState,
+        todoList: state.todoList,
+        visibleNewTaskForm: true,
       };
     // AddTodoForm Cases
     case SHOW_NEW_TASK_FORM:
@@ -279,53 +321,6 @@ export const todoReducer = (state = initialState, action) => {
           ...initialState.todoInfo,
           deadline: todaysDate,
         },
-      };
-
-    // Global Cases
-    case SET_INITIAL_STATE:
-      return initialState;
-
-    case SET_TITLE_WARNING:
-      return {
-        ...state,
-        warnings: {
-          ...warnings,
-          titleWarning: action.payload,
-        },
-      };
-
-    case SET_TAG_FIELD_WARNING:
-      return {
-        ...state,
-        warnings: {
-          ...warnings,
-          tagFieldWarning: action.payload,
-        },
-      };
-
-    case SET_SUBTASKS_WARNING:
-      return {
-        ...state,
-        warnings: {
-          ...warnings,
-          subtasksWarning: action.payload,
-        },
-      };
-
-    case SET_DEADLINE_WARNING:
-      return {
-        ...state,
-        warnings: {
-          ...warnings,
-          deadlineWarning: action.payload,
-        },
-      };
-
-    case RESET_FORM:
-      return {
-        ...initialState,
-        todoList: state.todoList,
-        visibleNewTaskForm: true,
       };
 
     default:
